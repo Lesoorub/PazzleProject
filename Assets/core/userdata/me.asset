@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4204b7ab901a0e44388c09601e035138, type: 3}
+  m_Name: me
+  m_EditorClassIdentifier: 
+  Name: Player
+  Image: {fileID: 21300000, guid: 8efd8e9bb17fbc946bd0a94f67537623, type: 3}
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  BaseHealth: 50
+  BaseDamage: 1
+  BaseSpells:
+  - {fileID: 11400000, guid: d1c8eeb973c5a16418d65541e9966537, type: 2}
+  - {fileID: 11400000, guid: 9434f8c231981904ba1630f7e73233ff, type: 2}
+  - {fileID: 11400000, guid: 2f3f88ff80970eb41a674c1d84ee4553, type: 2}
+  - {fileID: 11400000, guid: 5344ddd71c360cb4d87c0e9df39d0277, type: 2}

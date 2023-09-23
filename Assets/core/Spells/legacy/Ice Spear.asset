@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07fed2c017611841a770cb880b8501a, type: 3}
+  m_Name: Ice Spear
+  m_EditorClassIdentifier: 
+  Image: {fileID: 21300000, guid: 58744829b269fea46988635b8f1bc139, type: 3}
+  Color:
+    serializedVersion: 2
+    rgba: 4294928128
+  Cooldown: 5
+  CostStep: 1
+  NeedTarget: 0
+  Air: 5
+  Fire: 5
+  Plant: 5
+  Water: 20
+  BaseDamage: 25
+  AIPriority: 11

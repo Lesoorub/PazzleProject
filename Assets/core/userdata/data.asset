@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b362ae4bea724a6468dd9b72dc1502c4, type: 3}
+  m_Name: data
+  m_EditorClassIdentifier: 
+  person: {fileID: 11400000, guid: 40547235fa21cde4d850b0ffb1592ab0, type: 2}
+  wood: {fileID: 11400000, guid: 49aab68fcb553a04e9d2966e5b255168, type: 2}
+  stone: {fileID: 11400000, guid: 0de34b7bf8c14be46819f018d6253a89, type: 2}
+  cloth: {fileID: 11400000, guid: fa93294a4c99a3b46b5bda80bf7a3638, type: 2}
+  crystals: {fileID: 11400000, guid: 5fe0f64a5f297334c8b06b0f39ab5daf, type: 2}
+  rupee: {fileID: 11400000, guid: 592f7bd84932d35428a305c4275b5ef8, type: 2}
+  totalExp: {fileID: 11400000, guid: 5bf8a3df978c6bb4596e28006ef2aead, type: 2}

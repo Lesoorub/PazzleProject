@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4961b2086f61a0419fa2cf3f5760cc3, type: 3}
+  m_Name: Spider bit
+  m_EditorClassIdentifier: 
+  Image: {fileID: 21300000, guid: 2247e0c24fae09a448871f0dcea43d74, type: 3}
+  Color:
+    serializedVersion: 2
+    rgba: 4278979642
+  Cooldown: 5
+  CostStep: 1
+  NeedTarget: 0
+  Air: 10
+  Fire: 10
+  Plant: 10
+  Water: 10
+  AiPriority: 9
+  contains:
+  - spellEffect: {fileID: 11400000, guid: d4df44941d6dd0e418c40957215eef65, type: 2}
+    Multiply: 3

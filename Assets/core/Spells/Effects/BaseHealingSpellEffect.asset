@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7759573088626d43a2cfa80206dac59, type: 3}
+  m_Name: BaseHealingSpellEffect
+  m_EditorClassIdentifier: 
+  AIPriorityNeedHealingPriority: 10
+  AIPriorityDontNeedHealingPriority: 0
+  HealingGibImage: {fileID: 21300000, guid: d1de3bf21dcdc0c4d96c93952cf59261, type: 3}
+  HealingGibColor:
+    serializedVersion: 2
+    rgba: 4278255469

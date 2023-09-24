@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Модель окна распределения очков уровней.
+/// </summary>
 [ExecuteAlways]
 public class DLP_WindowModel : MonoBehaviour
 {

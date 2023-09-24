@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Все статические пути.
+/// </summary>
 internal static class Paths
 {
     public const string CoreDir = "core/";

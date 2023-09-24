@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Представление окна распределения очков уровней.
+/// </summary>
 public class DLP_WindowView : MonoBehaviour
 {
     [Header("Set in inspector")]
@@ -49,7 +52,21 @@ public class DLP_WindowView : MonoBehaviour
         this._availablePointsFormat = this.AvailablePoints.text;
     }
 
-    public void From(
+    /// <summary>
+    /// Загрузка из переданных данных.
+    /// </summary>
+    /// <param name="health"></param>
+    /// <param name="damage"></param>
+    /// <param name="minAir"></param>
+    /// <param name="maxAir"></param>
+    /// <param name="minFire"></param>
+    /// <param name="maxFire"></param>
+    /// <param name="minPlant"></param>
+    /// <param name="maxPlant"></param>
+    /// <param name="minWater"></param>
+    /// <param name="maxWater"></param>
+    /// <param name="freePoints"></param>
+    public void From( // Пока что так, позже нужно подумать как правильно это сделать.
         float health
         , float damage
         , float minAir

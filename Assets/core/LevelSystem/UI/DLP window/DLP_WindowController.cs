@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Контроллер окна распределения очков уровней.
+/// </summary>
 [ExecuteAlways]
 public class DLP_WindowController : MonoBehaviour
 {
@@ -30,11 +33,18 @@ public class DLP_WindowController : MonoBehaviour
         this._UpdateView();
     }
 
+    /// <summary>
+    /// Применить выбранные параметры к данным игрока.
+    /// </summary>
     public void _Apply()
     {
         this.SaveTo(this.playerStatistics);
     }
 
+    /// <summary>
+    /// Копирование данных в модель.
+    /// </summary>
+    /// <param name="playerStatistics"></param>
     public void CopyFrom(PlayerStatistics playerStatistics)
     {
         this.model.FreePoints = playerStatistics.FreePoints;
@@ -44,6 +54,10 @@ public class DLP_WindowController : MonoBehaviour
         this._UpdateView();
     }
 
+    /// <summary>
+    /// Сохранение данных уровней из модели.
+    /// </summary>
+    /// <param name="playerStatistics"></param>
     public void SaveTo(PlayerStatistics playerStatistics)
     {
         playerStatistics.FreePoints = this.model.FreePoints;
@@ -53,6 +67,9 @@ public class DLP_WindowController : MonoBehaviour
         this._UpdateView();
     }
 
+    /// <summary>
+    /// Обновляет представление из модели (целиком).
+    /// </summary>
     public void _UpdateView()
     {
         if (this.model == null ||

@@ -7,20 +7,22 @@ public class TableElementHelper : MonoBehaviour
     TableController table;
     [Header("Set in inspector")]
     public TableElementVisualizer visualizer;
+
     private void Start()
     {
-        table = GetComponentInParent<TableController>();
+        this.table = this.GetComponentInParent<TableController>();
     }
 
     public void _StartSelect()
     {
-        print(visualizer.targetPosition);
-        table.AddToSelected(visualizer);
+        print(this.visualizer.targetPosition);
+        this.table.AddToSelected(this.visualizer);
     }
+
     public void _ContinueSelection()
     {
-        if (!table.isSelectedStarted)
+        if (!this.table.isSelectedStarted)
             return;
-        table.AddToSelected(visualizer);
+        this.table.AddToSelected(this.visualizer);
     }
 }

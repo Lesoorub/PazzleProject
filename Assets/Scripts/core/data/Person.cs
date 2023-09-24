@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "person", menuName = "core/person")]
+[CreateAssetMenu(fileName = nameof(Person), menuName = Paths.PlayerDir + nameof(Person))]
 public class Person : ScriptableObject
 {
     public string Name;

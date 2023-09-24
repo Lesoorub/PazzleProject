@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[CreateAssetMenu(fileName = "userdata", menuName = "core/User/data", order = 2)]
+[CreateAssetMenu(fileName = nameof(UserData), menuName = Paths.PlayerDir + nameof(UserData))]
 public class UserData : ScriptableObject
 {
     public Person person;

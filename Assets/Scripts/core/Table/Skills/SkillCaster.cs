@@ -50,7 +50,7 @@ public class SkillCaster : MonoBehaviour
             //effect
             var obj = Instantiate(EffectPrefab, table.GetPosition(pos), Quaternion.identity, EffectParent);
             var rect = obj.GetComponent<RectTransform>();
-            rect.sizeDelta = Vector2.one * (table.size * 5 + table.space * 3) / transform.lossyScale.z;
+            rect.sizeDelta = Vector2.one * (table.Size * 5 + table.Space * 3) / transform.lossyScale.z;
             var outline = obj.GetComponent<UIOutline>();
             outline.color = new Color(0x87, 0, 0);
             Destroy(obj, 1f);
@@ -72,7 +72,7 @@ public class SkillCaster : MonoBehaviour
             //effect
             var obj = Instantiate(EffectPrefab, table.GetPosition(pos), Quaternion.identity, EffectParent);
             var rect = obj.GetComponent<RectTransform>();
-            rect.sizeDelta = Vector2.one * (table.size * 3 + table.space * 2) / transform.lossyScale.z;
+            rect.sizeDelta = Vector2.one * (table.Size * 3 + table.Space * 2) / transform.lossyScale.z;
             var outline = obj.GetComponent<UIOutline>();
             outline.color = new Color(0xFF, 0x4D, 0);
             Destroy(obj, 1f);
@@ -92,15 +92,15 @@ public class SkillCaster : MonoBehaviour
         actions.Add(new UnityAction<Vector2Int>(pos =>
         {
             TableElement e = table.Get(pos.x, pos.y);
-            for (int y = 0; y < TableController.TableSizeHeight; y++)
-                for (int x = 0; x < TableController.TableSizeWidth; x++)
+            for (int y = 0; y < TableController.TABLE_SIZE_HEIGHT; y++)
+                for (int x = 0; x < TableController.TABLE_SIZE_WIDTH; x++)
                 {
                     if (table.Get(x, y) == e)
                     {
                         //effect
                         var obj = Instantiate(EffectPrefab, table.GetPosition(x, y), Quaternion.identity, EffectParent);
                         var rect = obj.GetComponent<RectTransform>();
-                        rect.sizeDelta = Vector2.one * (table.size / transform.lossyScale.z);
+                        rect.sizeDelta = Vector2.one * (table.Size / transform.lossyScale.z);
                         var outline = obj.GetComponent<UIOutline>();
                         outline.color = new Color(0xFF, 0xE7, 0);
                         Destroy(obj, 1f);
@@ -126,8 +126,8 @@ public class SkillCaster : MonoBehaviour
             List<Vector2Int> Find(TableElement e)
             {
                 List<Vector2Int> r = new List<Vector2Int>();
-                for (int y = 0; y < TableController.TableSizeHeight; y++)
-                    for (int x = 0; x < TableController.TableSizeWidth; x++)
+                for (int y = 0; y < TableController.TABLE_SIZE_HEIGHT; y++)
+                    for (int x = 0; x < TableController.TABLE_SIZE_WIDTH; x++)
                     {
                         if (table.Get(x, y) == e) 
                             r.Add(new Vector2Int(x, y));
@@ -139,8 +139,8 @@ public class SkillCaster : MonoBehaviour
             {
                 Vector2Int near = p;
                 float min = (p - pos).magnitude;
-                for (int y = 0; y < TableController.TableSizeHeight; y++)
-                    for (int x = 0; x < TableController.TableSizeWidth; x++)
+                for (int y = 0; y < TableController.TABLE_SIZE_HEIGHT; y++)
+                    for (int x = 0; x < TableController.TABLE_SIZE_WIDTH; x++)
                     {
                         var el = table.Get(x, y);
                         if (el != selected)
@@ -163,7 +163,7 @@ public class SkillCaster : MonoBehaviour
                 //effect
                 var obj = Instantiate(EffectPrefab, table.GetPosition(p), Quaternion.identity, EffectParent);
                 var rect = obj.GetComponent<RectTransform>();
-                rect.sizeDelta = Vector2.one * (table.size / transform.lossyScale.z);
+                rect.sizeDelta = Vector2.one * (table.Size / transform.lossyScale.z);
                 var outline = obj.GetComponent<UIOutline>();
                 outline.color = new Color(0x00, 0xFD, 0x75);
                 Destroy(obj, 1f);
@@ -183,9 +183,9 @@ public class SkillCaster : MonoBehaviour
         preventNextSelect = true;
         actions.Add(new UnityAction<Vector2Int>(pos =>
         {
-            for (int k = 0; k < TableController.TableSizeWidth; k++)
+            for (int k = 0; k < TableController.TABLE_SIZE_WIDTH; k++)
                 table.RemoveAt(k, pos.y);
-            for (int k = 0; k < TableController.TableSizeHeight; k++)
+            for (int k = 0; k < TableController.TABLE_SIZE_HEIGHT; k++)
                 table.RemoveAt(pos.x, k);
             LaserX.interactable = true;
             table.TableEndSelection();

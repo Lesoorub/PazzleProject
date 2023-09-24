@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "new element", menuName = "core/Elements/Element", order = 1)]
+[CreateAssetMenu(fileName = nameof(TableElement), menuName = Paths.ElementsDir + nameof(TableElement))]
 public class TableElement : ScriptableObject
 {
     public Sprite image;

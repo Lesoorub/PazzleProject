@@ -6,6 +6,8 @@
 
 # Gameplay
 
+Видео геймплея.
+
 [![Тестовый геймплей](https://img.youtube.com/vi/UuB-djpyxPQ/0.jpg)](https://youtu.be/UuB-djpyxPQ)
 
 Путешествуйте по карте посещая различные места!

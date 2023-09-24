@@ -16,15 +16,17 @@ public class FightController : TableController
     public Color32 MeSelectionColor;
     public Color32 EnemySelectionColor;
 
+    bool preventNextSelect = false;
+    List<UnityAction<Vector2Int>> actions = new List<UnityAction<Vector2Int>>();
+
     FightPerson me_f;
     FightPerson enemy_f;
 
-
     bool curStepIsMe = true;
-    public FightPerson Me => curStepIsMe ? me_f : enemy_f;
-    public PersonInfoVisualizer Me_InfoVisualizer => curStepIsMe ? MyInfo : EnemyInfo;
-    public FightPerson Enemy => curStepIsMe ? enemy_f : me_f;
-    public PersonInfoVisualizer Enemy_InfoVisualizer => curStepIsMe ? EnemyInfo : MyInfo;
+    public FightPerson Me => this.curStepIsMe ? this.me_f : this.enemy_f;
+    public PersonInfoVisualizer Me_InfoVisualizer => this.curStepIsMe ? this.MyInfo : this.EnemyInfo;
+    public FightPerson Enemy => this.curStepIsMe ? this.enemy_f : this.me_f;
+    public PersonInfoVisualizer Enemy_InfoVisualizer => this.curStepIsMe ? this.EnemyInfo : this.MyInfo;
 
     [Header("AI")]
     public TableElement Skull;
@@ -38,11 +40,11 @@ public class FightController : TableController
 
     public void CreateFight(Person enemy)
     {
-        InitTable();
-        MyInfo.Set(me_f = new FightPerson(me), this);
-        EnemyInfo.Set(enemy_f = new FightPerson(enemy), this);
-        MyInfo.SetCurrentStep(curStepIsMe);
-        EnemyInfo.SetCurrentStep(!curStepIsMe);
+        this.InitTable();
+        this.MyInfo.Set(this.me_f = new FightPerson(this.me), this);
+        this.EnemyInfo.Set(this.enemy_f = new FightPerson(enemy), this);
+        this.MyInfo.SetCurrentStep(this.curStepIsMe);
+        this.EnemyInfo.SetCurrentStep(!this.curStepIsMe);
 
         AIDifficulty difficulty;
 
@@ -51,113 +53,113 @@ public class FightController : TableController
         else
             difficulty = AIDifficulty.Medium;
 
-        int w = TableSizeWidth, h = TableSizeHeight;
+        int w = TABLE_SIZE_WIDTH, h = TABLE_SIZE_HEIGHT;
 
         TableElement[,] tablecache = new TableElement[w, h];
         for (int y = 0; y < h; y++)
             for (int x = 0; x < w; x++)
-                tablecache[x, y] = Get(x, y);
+                tablecache[x, y] = this.Get(x, y);
 
-        ai = new FightAI(tablecache, Skull, Mana, difficulty);
+        this.ai = new FightAI(tablecache, this.Skull, this.Mana, difficulty);
 
-        OnSelectComplete?.RemoveListener(OnStepEnded);
-        OnSelectComplete?.AddListener(OnStepEnded);
+        this.OnSelectComplete?.RemoveListener(this.OnStepEnded);
+        this.OnSelectComplete?.AddListener(this.OnStepEnded);
 
-        me_f.OnDeath?.AddListener(() => InvokeOnFinish(enemy_f));
-        enemy_f.OnDeath?.AddListener(() => InvokeOnFinish(me_f));
+        this.me_f.OnDeath?.AddListener(() => this.InvokeOnFinish(this.enemy_f));
+        this.enemy_f.OnDeath?.AddListener(() => this.InvokeOnFinish(this.me_f));
     }
 
-    bool preventNextSelect = false;
-    List<UnityAction<Vector2Int>> actions = new List<UnityAction<Vector2Int>>();
     private void Awake()
     {
-        OnStartSelect?.AddListener(Preventor);
+        this.OnStartSelect?.AddListener(this.Preventor);
     }
 
 
     void Preventor(Vector2Int pos)
     {
-        if (preventNextSelect)
+        if (this.preventNextSelect)
         {
-            TableEndSelection();
-            preventNextSelect = false;
-            foreach (var a in actions)
+            this.TableEndSelection();
+            this.preventNextSelect = false;
+            foreach (var a in this.actions)
                 a?.Invoke(pos);
-            actions.Clear();
+            this.actions.Clear();
         }
     }
 
     public void AddSpellCastEvent(UnityAction<Vector2Int> @do)
     {
-        preventNextSelect = true;
-        actions.Add((x) =>
+        this.preventNextSelect = true;
+        this.actions.Add((x) =>
         {
             @do(x);
-            TableEndSelection();
+            this.TableEndSelection();
         });
     }
 
-    void OnStepEnded(int xp)
+    void OnStepEnded(int count)
     {
-        if (curStepIsMe)
-            MyStepEnded();
+        int xp = (int)(count * count * 0.25f);
+
+        if (this.curStepIsMe)
+            this.MyStepEnded();
         else
-            EnemyStepEnded();
+            this.EnemyStepEnded();
 
-        MyInfo.SetCurrentStep(curStepIsMe);
-        EnemyInfo.SetCurrentStep(!curStepIsMe);
+        this.MyInfo.SetCurrentStep(this.curStepIsMe);
+        this.EnemyInfo.SetCurrentStep(!this.curStepIsMe);
 
-        if (curStepIsMe)
-            OnMyStep?.Invoke();
+        if (this.curStepIsMe)
+            this.OnMyStep?.Invoke();
     }
 
     void MyStepEnded()
     {
-        curStepIsMe = false;
-        if (!enemy_f.isDeadth)
+        this.curStepIsMe = false;
+        if (!this.enemy_f.isDeadth)
         {
-            EnemyInfo.SpellsCooldownTick();
-            SelectionColor = EnemySelectionColor;
-            LineRenderer.color = EnemySelectionColor;
-            StartCoroutine(EnemyAIStep());
+            this.EnemyInfo.SpellsCooldownTick();
+            this.SelectionColor = this.EnemySelectionColor;
+            this.LineRenderer.color = this.EnemySelectionColor;
+            this.StartCoroutine(this.EnemyAIStep());
         }
     }
     void EnemyStepEnded()
     {
-        curStepIsMe = true;
-        MyInfo.SpellsCooldownTick();
-        SelectionColor = MeSelectionColor;
-        LineRenderer.color = MeSelectionColor;
+        this.curStepIsMe = true;
+        this.MyInfo.SpellsCooldownTick();
+        this.SelectionColor = this.MeSelectionColor;
+        this.LineRenderer.color = this.MeSelectionColor;
     }
 
     IEnumerator EnemyAIStep()
     {
-        curStepIsMe = false;
-        yield return StartCoroutine(AIStep(true));
+        this.curStepIsMe = false;
+        yield return this.StartCoroutine(this.AIStep(true));
     }
 
     void InvokeOnFinish(FightPerson finished)
     {
-        OnFinish?.Invoke(finished);
+        this.OnFinish?.Invoke(finished);
     }
 
     bool can_UseAIStep = true;
     public void _UseAIStep()
     {
-        if (curStepIsMe && can_UseAIStep)
+        if (this.curStepIsMe && this.can_UseAIStep)
         {
-            can_UseAIStep = false;
-            StartCoroutine(MeAIStep());
+            this.can_UseAIStep = false;
+            this.StartCoroutine(this.MeAIStep());
         }
     }
     IEnumerator MeAIStep()
     {
-        var t = ai.difficulty;
-        ai.difficulty = AIDifficulty.Hard;
-        curStepIsMe = true;
-        yield return StartCoroutine(AIStep());
-        ai.difficulty = t;
-        can_UseAIStep = true;
+        var t = this.ai.difficulty;
+        this.ai.difficulty = AIDifficulty.Hard;
+        this.curStepIsMe = true;
+        yield return this.StartCoroutine(this.AIStep());
+        this.ai.difficulty = t;
+        this.can_UseAIStep = true;
     }
     public IEnumerator AIStep(bool castSpells = false)
     {
@@ -167,9 +169,9 @@ public class FightController : TableController
         const float EndDelay = .5f;
         const float NotEnoghtStepsDelay = 2f;
 
-        LockInput = true;
+        this.LockInput = true;
         yield return new WaitForSecondsRealtime(StartDelay);
-        ai.UpdateTable(this);
+        this.ai.UpdateTable(this);
 
         bool step = true;
         if (castSpells)
@@ -177,23 +179,23 @@ public class FightController : TableController
             const int maxIterations = 32;
             for (int iterations = 0; iterations < maxIterations; iterations++)
             {
-                SpellVisualizer spell = ai.GetNeededSpellToCast(Me, Me_InfoVisualizer.Spells);
+                SpellVisualizer spell = this.ai.GetNeededSpellToCast(this.Me, this.Me_InfoVisualizer.Spells);
                 if (spell == null) break;
                 spell._OnClick();
                 if (spell.spell.NeedTarget)
                 {
-                    var steps = ai.GetAIStep();
+                    var steps = this.ai.GetAIStep();
                     while (steps.Count() == 0)
                     {
-                        InitTable();
+                        this.InitTable();
                         yield return new WaitForSecondsRealtime(NotEnoghtStepsDelay);
-                        steps = ai.GetAIStep();
+                        steps = this.ai.GetAIStep();
                     }
                     var p = steps.First();
-                    LockInput = false;
-                    AddToSelected(table[p.x, p.y].visualizer);
-                    TableEndSelection();
-                    LockInput = true;
+                    this.LockInput = false;
+                    this.AddToSelected(this.table[p.x, p.y].visualizer);
+                    this.TableEndSelection();
+                    this.LockInput = true;
                 }
                 if (spell.spell.CostStep)
                 {
@@ -206,33 +208,33 @@ public class FightController : TableController
 
         if (step)
         {
-            var steps = ai.GetAIStep();
+            var steps = this.ai.GetAIStep();
             while (steps.Count() == 0)
             {
-                InitTable();
+                this.InitTable();
                 yield return new WaitForSecondsRealtime(NotEnoghtStepsDelay);
-                steps = ai.GetAIStep();
+                steps = this.ai.GetAIStep();
             }
             foreach (var p in steps)
             {
-                LockInput = false;
-                AddToSelected(table[p.x, p.y].visualizer);
-                LockInput = true;
+                this.LockInput = false;
+                this.AddToSelected(this.table[p.x, p.y].visualizer);
+                this.LockInput = true;
                 yield return new WaitForSecondsRealtime(DelayBetweedSteps);
             }
-            LockInput = true;
+            this.LockInput = true;
             yield return new WaitForSecondsRealtime(DelayAfterSteps);
-            LockInput = false;
-            TableEndSelection();
+            this.LockInput = false;
+            this.TableEndSelection();
         }
         else
         {
-            LockInput = false;
-            EndStep();
+            this.LockInput = false;
+            this.EndStep();
         }
-        LockInput = true;
+        this.LockInput = true;
         yield return new WaitForSecondsRealtime(EndDelay);
-        LockInput = false;
+        this.LockInput = false;
 
         yield break;
     }
